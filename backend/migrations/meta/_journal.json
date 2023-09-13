@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1694571643841,
+      "tag": "0000_noisy_banshee",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1694572572365,
+      "tag": "0001_sour_puck",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1694572590004,
+      "tag": "0002_white_la_nuit",
+      "breakpoints": true
+    }
+  ]
+}
