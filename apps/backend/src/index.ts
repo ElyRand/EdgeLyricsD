@@ -14,7 +14,7 @@ const db = drizzle(client);
 
 const app = new Hono();
 
-app
+const songsRoute = app
   .get("/songs", async (c) => {
     const data = await db.select().from(songs).all();
 
@@ -39,12 +39,9 @@ app
     "/songs/:id",
     zValidator("param", z.object({ id: z.string() })),
     async (c) => {
-      const id = c.req.valid("param").id;
-      const song = await db
-        .select({
-          id: songs.id,
-        })
-        .from(songs);
+      const idParam = c.req.valid("param").id;
+      const id = parseInt(idParam);
+      const [song] = await db.select().from(songs).where(eq(songs.id, id));
 
       if (song) {
         return c.jsonT(song);
@@ -73,3 +70,5 @@ app
   );
 
 export default app;
+
+export type AppType = typeof songsRoute;
