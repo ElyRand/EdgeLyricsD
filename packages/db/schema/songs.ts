@@ -1,3 +1,4 @@
+import { InferSelectModel } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const songs = sqliteTable(
@@ -11,3 +12,5 @@ export const songs = sqliteTable(
     titleIdx: index("titleIdx").on(songs.title),
   })
 );
+
+export type SelectSong = InferSelectModel<typeof songs>;
