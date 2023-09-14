@@ -1,7 +1,7 @@
 import { Config } from "drizzle-kit";
 
 export default {
-  schema: "./src/db/schema/",
+  schema: "../../packages/db/schema/*",
   out: "./migrations",
   driver: "turso",
   dbCredentials: {

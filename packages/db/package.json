@@ -1,18 +1,11 @@
 {
-  "scripts": {
-    "dev": "wrangler dev src/index.ts",
-    "deploy": "wrangler deploy --minify src/index.ts",
-    "generate": "drizzle-kit generate:sqlite",
-    "push": "drizzle-kit push:sqlite",
-    "migrate": "migrate.ts"
-  },
+  "name": "db",
   "dependencies": {
     "@hono/zod-validator": "^0.1.8",
     "@libsql/client": "^0.3.5-pre.1",
     "drizzle-orm": "^0.28.6",
     "hono": "^3.6.0",
-    "zod": "^3.22.2",
-    "db": "workspace:*"
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230904.0",

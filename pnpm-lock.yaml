@@ -26,6 +26,9 @@ importers:
       '@libsql/client':
         specifier: ^0.3.5-pre.1
         version: 0.3.5-pre.1
+      db:
+        specifier: workspace:*
+        version: link:../../packages/db
       drizzle-orm:
         specifier: ^0.28.6
         version: 0.28.6(@cloudflare/workers-types@4.20230904.0)(@libsql/client@0.3.5-pre.1)
@@ -87,6 +90,34 @@ importers:
       zod:
         specifier: ^3.22.2
         version: 3.22.2
+
+  packages/db:
+    dependencies:
+      '@hono/zod-validator':
+        specifier: ^0.1.8
+        version: 0.1.8(hono@3.6.0)(zod@3.22.2)
+      '@libsql/client':
+        specifier: ^0.3.5-pre.1
+        version: 0.3.5-pre.1
+      drizzle-orm:
+        specifier: ^0.28.6
+        version: 0.28.6(@cloudflare/workers-types@4.20230904.0)(@libsql/client@0.3.5-pre.1)
+      hono:
+        specifier: ^3.6.0
+        version: 3.6.0
+      zod:
+        specifier: ^3.22.2
+        version: 3.22.2
+    devDependencies:
+      '@cloudflare/workers-types':
+        specifier: ^4.20230904.0
+        version: 4.20230904.0
+      drizzle-kit:
+        specifier: ^0.19.13
+        version: 0.19.13
+      wrangler:
+        specifier: ^3.7.0
+        version: 3.7.0
 
 packages:
 
