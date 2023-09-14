@@ -28,7 +28,11 @@ export default async function Page() {
       <ul>
         {data?.map((song: any) => (
           <li key={song.id}>
-            {song.id} - {song.title}
+            <Link href={"/songs/" + song.id}>
+              <span>
+                {song.id} - {song.title}
+              </span>
+            </Link>
           </li>
         ))}
       </ul>

@@ -14,45 +14,62 @@ const db = drizzle(client);
 
 const app = new Hono();
 
-app.get("/songs", async (c) => {
-  const data = await db.select().from(songs).all();
+app
+  .get("/songs", async (c) => {
+    const data = await db.select().from(songs).all();
 
-  return c.jsonT({ data });
-});
-
-app.post(
-  "/songs",
-  zValidator("json", z.object({ title: z.string(), lyrics: z.string() })),
-  async (c) => {
-    const body = c.req.valid("json");
-    try {
-      const adding = await db.insert(songs).values(body);
-      c.status(204);
-      return c.text("Added", adding.rowsAffected);
-    } catch (e) {
-      c.status(200);
-      return c.jsonT(e);
+    return c.jsonT({ data });
+  })
+  .post(
+    "/songs",
+    zValidator("json", z.object({ title: z.string(), lyrics: z.string() })),
+    async (c) => {
+      const body = c.req.valid("json");
+      try {
+        const adding = await db.insert(songs).values(body);
+        c.status(204);
+        return c.text("Added", adding.rowsAffected);
+      } catch (e) {
+        c.status(200);
+        return c.jsonT(e);
+      }
     }
-  }
-);
+  )
+  .get(
+    "/songs/:id",
+    zValidator("param", z.object({ id: z.string() })),
+    async (c) => {
+      const id = c.req.valid("param").id;
+      const song = await db
+        .select({
+          id: songs.id,
+        })
+        .from(songs);
 
-app.delete(
-  "/songs/:id",
-  zValidator("param", z.object({ id: z.string() })),
-  async (c) => {
-    const id = c.req.valid("param").id;
-    try {
-      const deleted = await db
-        .delete(songs)
-        .where(eq(songs.id, parseInt(id)))
-        .returning();
-      c.status(200);
-      return c.jsonT({ deleted });
-    } catch (e) {
-      c.status(400);
-      return c.jsonT({ message: "not deleted" });
+      if (song) {
+        return c.jsonT(song);
+      } else {
+        return c.text("not found", 404);
+      }
     }
-  }
-);
+  )
+  .delete(
+    "/songs/:id",
+    zValidator("param", z.object({ id: z.string() })),
+    async (c) => {
+      const id = c.req.valid("param").id;
+      try {
+        const deleted = await db
+          .delete(songs)
+          .where(eq(songs.id, parseInt(id)))
+          .returning();
+        c.status(200);
+        return c.jsonT({ deleted });
+      } catch (e) {
+        c.status(400);
+        return c.jsonT({ message: "not deleted" });
+      }
+    }
+  );
 
 export default app;
