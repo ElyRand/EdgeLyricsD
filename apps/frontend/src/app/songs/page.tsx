@@ -1,5 +1,6 @@
 import Link from "next/link";
 import client from "../../../utils/honoClient";
+import DeleteButton from "./components/DeleteButton";
 
 async function getData() {
   return (await client.songs.$get()).json();
@@ -7,7 +8,6 @@ async function getData() {
 
 export default async function Page() {
   const { data } = await getData();
-  console.log(data);
   return (
     <main className="px-10">
       <div className="flex gap-x-10">
@@ -25,6 +25,7 @@ export default async function Page() {
                 {song.id} - {song.title}
               </span>
             </Link>
+            <DeleteButton songId={song.id} />
           </li>
         ))}
       </ul>

@@ -5,6 +5,8 @@ import { songs } from "./db/schema/song";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
+import { cors } from "hono/cors";
+
 const client = createClient({
   url: "https://current-the-phantom-elyrand.turso.io",
   authToken:
@@ -12,7 +14,13 @@ const client = createClient({
 });
 const db = drizzle(client);
 
-const app = new Hono();
+const app = new Hono().use(
+  "*",
+  cors({
+    origin: "*",
+    allowHeaders: ["*"],
+  })
+);
 
 const songsRoute = app
   .get("/songs", async (c) => {
@@ -67,8 +75,10 @@ const songsRoute = app
         return c.jsonT({ message: "not deleted" });
       }
     }
-  );
-
+  )
+  .options("*", (c) => {
+    return new Response(null, { status: 204 });
+  });
 export default app;
 
 export type AppType = typeof songsRoute;

@@ -1,6 +1,5 @@
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { useState } from "react";
 import { z } from "zod";
 import client from "../../../../utils/honoClient";
 
@@ -17,8 +16,9 @@ export default function AddPage() {
       title: formData.get("title"),
       lyrics: formData.get("lyrics"),
     });
-    const create = client.songs.$post({ json: parsed });
-    return (await create).json();
+    await client.songs.$post({ json: parsed });
+    revalidatePath("/songs");
+    redirect("/songs");
   }
 
   return (
