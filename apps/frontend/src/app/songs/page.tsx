@@ -1,16 +1,8 @@
 import Link from "next/link";
+import client from "../../../utils/honoClient";
 
 async function getData() {
-  const res = await fetch("https://my-app.elyeser-f.workers.dev/songs");
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
+  return (await client.songs.$get()).json();
 }
 
 export default async function Page() {

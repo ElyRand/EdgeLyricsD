@@ -2,6 +2,7 @@ import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { useState } from "react";
 import { z } from "zod";
+import client from "../../../../utils/honoClient";
 
 const schema = z.object({
   title: z.string(),
@@ -16,20 +17,8 @@ export default function AddPage() {
       title: formData.get("title"),
       lyrics: formData.get("lyrics"),
     });
-    const req = await fetch("https://my-app.elyeser-f.workers.dev/songs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(parsed),
-    });
-
-    if (req.ok) {
-      revalidatePath("/songs");
-      redirect("/songs");
-    } else {
-      console.error(await req.json());
-    }
+    const create = client.songs.$post({ json: parsed });
+    return (await create).json();
   }
 
   return (
