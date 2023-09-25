@@ -5,7 +5,7 @@ import { Button } from "@/components/Button";
 import { Plus } from "lucide-react";
 
 async function getData() {
-  return (await client.songs.$get()).json();
+  return (await client.songs.$get({}, {})).json();
 }
 
 export default async function Page() {
@@ -36,3 +36,5 @@ export default async function Page() {
     </main>
   );
 }
+
+export const dynamic = "force-dynamic";
