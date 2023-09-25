@@ -1,7 +1,7 @@
 "use client";
 
 import { revalidatePath } from "next/cache";
-import client from "../../../../utils/honoClient";
+import client from "../../../../lib/honoClient";
 
 interface DeleteButtonProps {
   songId: string;

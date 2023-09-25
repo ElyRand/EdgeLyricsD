@@ -1,5 +1,5 @@
 import Link from "next/link";
-import client from "../../../../utils/honoClient";
+import client from "../../../../lib/honoClient";
 
 const getSong = async (id: string) => {
   const result = await client.songs[":id"].$get({ param: { id } });

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import client from "../../../utils/honoClient";
+import client from "../../../lib/honoClient";
 import DeleteButton from "./components/DeleteButton";
 
 async function getData() {

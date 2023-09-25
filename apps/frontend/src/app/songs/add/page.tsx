@@ -1,7 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import client from "../../../../utils/honoClient";
+import client from "../../../../lib/honoClient";
 
 const schema = z.object({
   title: z.string(),
