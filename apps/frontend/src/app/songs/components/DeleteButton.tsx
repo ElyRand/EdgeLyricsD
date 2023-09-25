@@ -15,12 +15,7 @@ const DeleteButton = ({ songId }: DeleteButtonProps) => {
   return (
     <Button
       onClick={async () => {
-        console.log("HEERE");
-        const data = new FormData();
-        data.set("id", songId);
-        // await startTransition(async () => {
-        await deleteSong(data);
-        // });
+        await deleteSong(songId);
       }}
       className="text-red-200 bg-transparent"
     >
